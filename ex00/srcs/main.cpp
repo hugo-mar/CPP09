@@ -6,7 +6,7 @@
 /*   By: hugo-mar <hugo-mar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 23:52:47 by hugo-mar          #+#    #+#             */
-/*   Updated: 2025/10/05 21:48:38 by hugo-mar         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:50:40 by hugo-mar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main (int argc, char** argv) {
 		return 0;
 		
 	} catch (const std::exception& e) {
-		std::cout << e.what() << '\n';
+		std::cerr << e.what() << '\n';
 		return 1;
 	}
 }
