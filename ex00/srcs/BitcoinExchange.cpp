@@ -6,15 +6,15 @@
 /*   By: hugo-mar <hugo-mar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:21:09 by hugo-mar          #+#    #+#             */
-/*   Updated: 2025/10/05 14:38:59 by hugo-mar         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:15:54 by hugo-mar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-#include <cstdlib>						// std::strtod std:atoi
+#include <cstdlib>						// std::strtod, std:atoi
 #include <iostream>
 #include <string>
-#include <fstream>
+#include <fstream>						// std::ifstream
 #include <sstream>						// std::ostringstream
 
 /*----------------------------------------------------*/
@@ -110,7 +110,7 @@ bool	BitcoinExchange::isValidDate(const std::string& date) {
 	if (month < 1 || month > 12)
 		return false;
 		
-	static const int MonthsMaxDays[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};		// Static for optimization (creation only at first call)
+	static const int MonthsMaxDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};		// Static for optimization (creation only at first call)
 	int daysInMonth = MonthsMaxDays[month - 1];
 	if (month == 2) {
 		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))		// If true, it's a leap year
