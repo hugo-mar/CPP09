@@ -41,21 +41,44 @@ Error: too large a number.
 
 ---
 
-## Exercise 01 — (to be completed)
+## Exercise 01 — RPN (Reverse Polish Notation)
 
 ### Description
-_(Reserved for the next exercise. Fill in after reading the subject.)_
+Create a program that evaluates a mathematical expression written in **Reverse Polish Notation (RPN)**.  
+The program receives the expression as a **single command-line argument**, processes it using a stack, and prints the result.
 
 ### Requirements
-- Language: C++98
-- Container used: _(choose one not used before)_
+- Language: **C++98**
+- **Container used:** `std::stack<long long>` (adaptor; uses `std::deque` by default)
 - Compile flags: `-Wall -Wextra -Werror -std=c++98`
+- Input constraints:
+  - Tokens are separated by spaces.
+  - Operands are **single-digit integers** (`0..9`). *(Only the inputs are constrained; intermediate and final results are not.)*
+  - Supported operators: `+`, `-`, `*`, `/`
+  - No parentheses and no decimal numbers.
+- Output:
+  - On success: print the numeric result to **stdout**.
+  - On error (invalid token, not enough operands, division by zero, malformed expression, wrong number of args): print **`Error`** to **stderr** and exit with non-zero status.
 
 ### Logic
-_(To be defined)_
+1. Parse the input string from left to right, splitting by whitespace.
+2. For each token:
+   - If it’s a digit `0..9`, push its value onto the stack.
+   - If it’s an operator, pop two operands (`b` then `a`), compute `a op b`, and push the result.
+   - Otherwise, throw an error.
+3. At the end, the stack must contain **exactly one** value → that’s the result; otherwise, **error**.
+4. Division is **integer division**; division by zero triggers an **error**.
 
 ### Example
-_(To be defined)_
+
+$ ./RPN "8 9 * 9 - 9 - 9 - 4 - 1 +"
+42
+$ ./RPN "7 7 * 7 -"
+42
+$ ./RPN "1 2 * 2 / 2 * 2 4 - +"
+0
+$ ./RPN "(1 + 1)"
+Error
 
 ---
 
