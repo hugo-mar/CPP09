@@ -6,7 +6,7 @@
 /*   By: hugo-mar <hugo-mar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:21:09 by hugo-mar          #+#    #+#             */
-/*   Updated: 2025/10/05 23:15:54 by hugo-mar         ###   ########.fr       */
+/*   Updated: 2025/10/06 17:24:55 by hugo-mar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ bool	BitcoinExchange::getRateForDate(const std::string& date, double& outRate) c
 /*------------------*/
 void	BitcoinExchange::loadDatabase(const char* csvPath) {
 
-	std::ifstream in(csvPath, std::ios::in);
+	std::ifstream in(csvPath);
 	if (!in)
 		throw std::runtime_error("Error: could not open file.");
 	
