@@ -71,13 +71,13 @@ The program receives the expression as a **single command-line argument**, proce
 
 ### Example
 ```
-$ ./RPN "8 9 * 9 - 9 - 9 - 4 - 1 +"
+$> ./RPN "8 9 * 9 - 9 - 9 - 4 - 1 +"
 42
-$ ./RPN "7 7 * 7 -"
+$> ./RPN "7 7 * 7 -"
 42
-$ ./RPN "1 2 * 2 / 2 * 2 4 - +"
+$> ./RPN "1 2 * 2 / 2 * 2 4 - +"
 0
-$ ./RPN "(1 + 1)"
+$> ./RPN "(1 + 1)"
 Error
 ```
 
