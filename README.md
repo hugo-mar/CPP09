@@ -70,7 +70,7 @@ The program receives the expression as a **single command-line argument**, proce
 4. Division is **integer division**; division by zero triggers an **error**.
 
 ### Example
-
+```
 $ ./RPN "8 9 * 9 - 9 - 9 - 4 - 1 +"
 42
 $ ./RPN "7 7 * 7 -"
@@ -79,6 +79,7 @@ $ ./RPN "1 2 * 2 / 2 * 2 4 - +"
 0
 $ ./RPN "(1 + 1)"
 Error
+```
 
 ---
 
