@@ -6,7 +6,7 @@
 /*   By: hugo-mar <hugo-mar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 20:23:05 by hugo-mar          #+#    #+#             */
-/*   Updated: 2025/10/07 00:01:17 by hugo-mar         ###   ########.fr       */
+/*   Updated: 2025/10/07 12:33:55 by hugo-mar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ long long	RPN::evaluate(const std::string& expr) {
 
 	for (std::size_t i = 0; i < expr.size(); ++i) {
 		
-		if (std::isspace(static_cast<unsigned char>(expr[i])))  // Cast because isspace expects unsigned char, and char can be negative (ex: 'é') leading to undifined behaviour
+		if (std::isspace(static_cast<unsigned char>(expr[i])))  	// Cast to unsigned char to avoid UB with negative char values
 			continue;
 
 		if (std::isdigit(static_cast<unsigned char>(expr[i]))) {

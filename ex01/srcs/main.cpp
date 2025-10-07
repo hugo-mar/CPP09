@@ -6,7 +6,7 @@
 /*   By: hugo-mar <hugo-mar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 00:01:21 by hugo-mar          #+#    #+#             */
-/*   Updated: 2025/10/07 00:16:00 by hugo-mar         ###   ########.fr       */
+/*   Updated: 2025/10/07 12:16:45 by hugo-mar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int main(int argc, char** argv) {
 	try {
 		RPN rpn;
 		std::cout<< rpn.evaluate(argv[1]) << '\n';
-	}
-	catch (...) {
+	} catch (...) {
 		std::cerr << "Error\n";
 		return 1;
 	}
