@@ -6,7 +6,7 @@
 /*   By: hugo-mar <hugo-mar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 18:57:56 by hugo-mar          #+#    #+#             */
-/*   Updated: 2025/10/10 09:58:08 by hugo-mar         ###   ########.fr       */
+/*   Updated: 2025/10/10 23:45:11 by hugo-mar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ private:
 	void	insertSmallsList(std::list<unsigned int>& bigs, const std::list<unsigned int>& smalls) const;
 
 	// Utilities
-	static bool	parseUInt(const char* str, unsigned int& out);
+	static bool	parseUInt(const char* str, unsigned int& out);			// class-level helper, no instance
 	void		requireNonEmpty() const;
 	
 public:
@@ -62,7 +62,7 @@ public:
 	// Input loading
 	void	loadFromArgs(int argc, char** argv);
 
-	// Sorting - Execute merge-insert for each container and return elapsed time (µs)
+	// Sorting - returns elapsed time (µs)
 	double	sortVector();
 	double	sortList();
 

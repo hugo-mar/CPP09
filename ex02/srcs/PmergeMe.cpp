@@ -6,7 +6,7 @@
 /*   By: hugo-mar <hugo-mar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 23:43:49 by hugo-mar          #+#    #+#             */
-/*   Updated: 2025/10/10 09:59:08 by hugo-mar         ###   ########.fr       */
+/*   Updated: 2025/10/10 23:47:05 by hugo-mar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include <sys/time.h>		// gettimeofday
 #include <algorithm>		// std::sort, std::lower_bound
 
-// Utility function to get the current system time in microseconds (inline tells the compiler it can replace the call with the function's tiny code directly)
-static inline double nowMicroSecs() {
+// Utility function to get the current system time in microseconds
+static inline double nowMicroSecs() {			//(inline tells the compiler it can replace the call with the function's tiny code directly)
 	timeval tv;
 	gettimeofday(&tv, NULL);
 	return tv.tv_sec * 1e6 + tv.tv_usec;	
