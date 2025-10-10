@@ -158,9 +158,26 @@ make
 ```
 
 ## Execution
-```
-./<program_name> <input_file>
-```
+
+Each exercise produces its own executable:
+
+* **ex00 — BitcoinExchange**
+
+  ```bash
+  ./btc <input_file>
+  ```
+
+* **ex01 — RPN (Reverse Polish Notation)**
+
+  ```bash
+  ./RPN "<expression>"
+  ```
+
+* **ex02 — PmergeMe**
+
+  ```bash
+  ./PmergeMe <sequence_of_positive_integers>
+  ```
 
 ## Cleaning
 ```
