@@ -6,7 +6,7 @@
 /*   By: hugo-mar <hugo-mar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 23:43:49 by hugo-mar          #+#    #+#             */
-/*   Updated: 2025/10/10 23:47:05 by hugo-mar         ###   ########.fr       */
+/*   Updated: 2025/10/11 00:08:00 by hugo-mar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@
 #include <vector>			// std::vector
 #include <sys/time.h>		// gettimeofday
 #include <algorithm>		// std::sort, std::lower_bound
-
-// Utility function to get the current system time in microseconds
-static inline double nowMicroSecs() {			//(inline tells the compiler it can replace the call with the function's tiny code directly)
-	timeval tv;
-	gettimeofday(&tv, NULL);
-	return tv.tv_sec * 1e6 + tv.tv_usec;	
-}
 
 // ----- Orthodox Canonical Form ------
 PmergeMe::PmergeMe() {}
@@ -43,6 +36,104 @@ PmergeMe&	PmergeMe::operator=(const PmergeMe& other) {
 }
 
 PmergeMe::~PmergeMe() {}
+
+// ----- Input loading -----
+void	PmergeMe::loadFromArgs(int argc, char** argv) {
+	
+	// Reset containers before loading new input
+	_input.clear();
+	_vec.clear();
+	_lst.clear();
+
+	if (argc < 2)
+		throw std::runtime_error("Error");
+
+	for (int i = 1; i < argc; ++i) {
+		
+		unsigned int n;
+		
+		if (!parseUInt(argv[i], n))	
+			throw std::runtime_error("Error");
+			
+		_input.push_back(n);
+	}
+}
+
+// ----- Sorting - Execute merge-insert for each container and return elapsed time (µs) -----
+static inline double nowMicroSecs() {			// Utility function to get the current system time in microseconds
+	timeval tv;									// (inline tells the compiler it can replace the call with the function's tiny code directly)
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec * 1e6 + tv.tv_usec;	
+}
+
+double	PmergeMe::sortVector() {
+	
+	requireNonEmpty();
+	_vec = _input;
+	
+	if (_vec.size() < 2)
+		return 0.0;
+	
+	double t0 = nowMicroSecs();
+	mergeInsertVector();
+	double t1 = nowMicroSecs();
+	
+	return t1 - t0;
+}
+
+double	PmergeMe::sortList() {
+	
+	requireNonEmpty();
+	_lst.assign(_input.begin(), _input.end());
+
+	if (_lst.size() < 2)
+		return 0.0;
+
+	double t0 = nowMicroSecs();
+	mergeInsertList();
+	double t1 = nowMicroSecs();
+
+	return t1 - t0;
+}
+
+// ----- Output -----
+void	PmergeMe::printBefore(std::ostream& os) const {
+	os << "Before:\t";
+	for (std::vector<unsigned int>::const_iterator it = _input.begin(); it != _input.end(); ++it) {
+		if (it != _input.begin()) os << ' ';
+		os << *it;
+	}
+	os << '\n';
+}
+
+void	PmergeMe::printAfterVector(std::ostream& os) const {
+	os << "After:\t";
+	for (std::vector<unsigned int>::const_iterator it = _vec.begin(); it != _vec.end(); ++it) {
+		if (it != _vec.begin()) os << ' ';
+		os << *it;
+	}
+	os << '\n';	
+}
+
+void	PmergeMe::printAfterList(std::ostream& os) const {
+	os << "After:\t";
+	for (std::list<unsigned int>::const_iterator it = _lst.begin(); it != _lst.end(); ++it) {
+		if (it != _lst.begin()) os << ' ';
+		os << *it;
+	}
+	os << '\n';
+}
+
+// Accessors
+const std::vector<unsigned int>&	PmergeMe::getVector() const {
+	
+	return _vec;
+}
+
+const std::list<unsigned int>&		PmergeMe::getList() const {
+	
+	return _lst;
+}
 
 // ----- Merge-Insert algorithm for std::vector -----
 void	PmergeMe::mergeInsertVector() {
@@ -170,96 +261,4 @@ bool	PmergeMe::parseUInt(const char* str, unsigned int& out) {
 void		PmergeMe::requireNonEmpty() const {
 	if (_input.empty())
 		throw std::runtime_error("Error");
-}
-
-// ----- Input loading -----
-void	PmergeMe::loadFromArgs(int argc, char** argv) {
-	
-	// Reset containers before loading new input
-	_input.clear();
-	_vec.clear();
-	_lst.clear();
-
-	if (argc < 2)
-		throw std::runtime_error("Error");
-
-	for (int i = 1; i < argc; ++i) {
-		
-		unsigned int n;
-		
-		if (!parseUInt(argv[i], n))	
-			throw std::runtime_error("Error");
-			
-		_input.push_back(n);
-	}
-}
-
-// ----- Sorting - Execute merge-insert for each container and return elapsed time (µs) -----
-double	PmergeMe::sortVector() {
-	
-	requireNonEmpty();
-	_vec = _input;
-	
-	if (_vec.size() < 2)
-		return 0.0;
-	
-	double t0 = nowMicroSecs();
-	mergeInsertVector();
-	double t1 = nowMicroSecs();
-	
-	return t1 - t0;
-}
-
-double	PmergeMe::sortList() {
-	
-	requireNonEmpty();
-	_lst.assign(_input.begin(), _input.end());
-
-	if (_lst.size() < 2)
-		return 0.0;
-
-	double t0 = nowMicroSecs();
-	mergeInsertList();
-	double t1 = nowMicroSecs();
-
-	return t1 - t0;
-}
-
-// ----- Output -----
-void	PmergeMe::printBefore(std::ostream& os) const {
-	os << "Before:\t";
-	for (std::vector<unsigned int>::const_iterator it = _input.begin(); it != _input.end(); ++it) {
-		if (it != _input.begin()) os << ' ';
-		os << *it;
-	}
-	os << '\n';
-}
-
-void	PmergeMe::printAfterVector(std::ostream& os) const {
-	os << "After:\t";
-	for (std::vector<unsigned int>::const_iterator it = _vec.begin(); it != _vec.end(); ++it) {
-		if (it != _vec.begin()) os << ' ';
-		os << *it;
-	}
-	os << '\n';	
-}
-
-void	PmergeMe::printAfterList(std::ostream& os) const {
-	os << "After:\t";
-	for (std::list<unsigned int>::const_iterator it = _lst.begin(); it != _lst.end(); ++it) {
-		if (it != _lst.begin()) os << ' ';
-		os << *it;
-	}
-	os << '\n';
-}
-
-// Accessors
-const std::vector<unsigned int>&	PmergeMe::getVector() const {
-	
-	return _vec;
-}
-
-const std::list<unsigned int>&		PmergeMe::getList() const {
-	
-	return _lst;
 }
